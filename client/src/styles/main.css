@@ -216,6 +216,10 @@ header {
         }
 
         .search-result {
+            &:focus {
+                outline: none;
+            }
+
             display: grid;
             grid-template-columns: 42px auto;
             padding: calc(var(--space) * 1);
@@ -230,6 +234,7 @@ header {
                         var(--color-surface-alt) 2px,
                         var(--color-surface-alt) 16px
                 );
+                transition: all 150ms ease-in;
 
                 .indicator-label {
                     position: absolute;
@@ -241,6 +246,8 @@ header {
                     transform: translate(-50%, -50%) rotate(-90deg);
                     color: var(--color-text-muted);
                     user-select: none;
+
+                    transition: all 150ms ease-in;
                 }
             }
 
