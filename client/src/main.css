@@ -1,0 +1,25 @@
+@import "reset.css";
+@import "utils.css";
+
+@import "frame.css";
+
+:root {
+  --color-bg: #000000;
+  --color-surface: #0E0E0E;
+  --color-surface-alt: #1F1F1F;
+  --color-text: #EFEFEF;
+  --color-text-muted: #6F6F6F;
+  --color-border: #2F2F2F;
+  --color-accent: #FF4F00;
+  --color-alt: #15FF00;
+
+  --font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --font-h1-size: 2rem;
+  --font-h1-weight: 600;
+
+  --space: 4px;
+
+  text-rendering: optimizeLegibility;
+  color-scheme: dark;
+}
