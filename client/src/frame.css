@@ -10,7 +10,7 @@
   display: block;
   z-index: 0;
   border-style: solid;
-  animation: 250ms ease-in forwards frame-shrink;
+  animation: 350ms cubic-bezier(0.25, 1, 0.5, 1) forwards frame-shrink;
 
   --thickness-border: 2px;
   --thickness-mult: 1;
@@ -32,7 +32,7 @@
 
 @keyframes frame-shrink {
   0% {
-    --thickness-mult: 2.5;
+    --thickness-mult: 3;
   }
   100% {
     --thickness-mult: 1;
