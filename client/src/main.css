@@ -113,6 +113,7 @@ header {
     border: var(--color-border) 1px solid;
     padding: calc(var(--space) * 1);
     color: var(--color-text-muted);
+    transition: border-color 0.15s, box-shadow 0.15s, color 0.15s;
 
     .search-container {
         background: var(--color-surface);
@@ -127,22 +128,24 @@ header {
 
         input {
             width: 100%;
+            color: var(--color-text);
 
             padding-inline: calc(var(--space) * 2);
             padding-block: calc(var(--space) * 2);
 
-            transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
-
             &:focus {
                 outline: none;
+            }
+
+            &::placeholder {
+                color: var(--color-text-muted);
             }
         }
     }
 
     &:focus-within {
         border-color: var(--color-accent);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
-        color: var(--color-text);
+        box-shadow: 0 0 3px 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 
         .icon {
             color: var(--color-accent);
