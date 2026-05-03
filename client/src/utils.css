@@ -17,11 +17,6 @@ body {
   overflow: hidden;
 }
 
-h1 {
-  font-size: var(--font-h1-size);
-  font-weight: var(--font-h1-weight);
-}
-
 svg {
   fill: currentColor;
 }
