@@ -215,6 +215,12 @@ header {
             }
         }
 
+        &.visible {
+        }
+        &.hidden {
+            display: none;
+        }
+
         .search-result {
             &:focus {
                 outline: none;
@@ -288,9 +294,15 @@ header {
                 }
 
                 .target {
+                    display: flex;
                     font-size: 0.8rem;
                     color: var(--color-text-muted);
                     font-family: var(--font-mono), monospace;
+
+                    .icon {
+                        display: inline;
+                        margin-inline-start: auto;
+                    }
                 }
             }
         }
