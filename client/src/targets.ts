@@ -1,8 +1,8 @@
-export type WarpTarget = {
-    id: string
-    host: string
-    title: string
-    url: string
+export interface WarpTarget {
+    id: string;
+    host: string;
+    title: string;
+    url: string;
 }
 
 // @ts-ignore - temp impl until this is injected by the server at runtime
