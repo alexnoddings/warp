@@ -1,0 +1,27 @@
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font), sans-serif;
+  font-size: 16px;
+}
+
+.sr {
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: var(--font-h1-size);
+  font-weight: var(--font-h1-weight);
+}
+
+svg {
+  fill: currentColor;
+}
