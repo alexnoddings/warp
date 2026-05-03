@@ -1,0 +1,40 @@
+@property --thickness-mult {
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+.frame {
+  position: fixed;
+  inset: 0;
+  display: block;
+  z-index: 0;
+  border-style: solid;
+  animation: 250ms ease-in forwards frame-shrink;
+
+  --thickness-border: 2px;
+  --thickness-mult: 1;
+  --thickness: calc(var(--space) * 3 * var(--thickness-mult));
+
+  &.frame-1 {
+    border-color: var(--color-border);
+    border-width: calc(var(--thickness-border) + var(--thickness) + var(--thickness-border));
+  }
+  &.frame-2 {
+    border-color: var(--color-surface-alt);
+    border-width: calc(var(--thickness-border) + var(--thickness));
+  }
+  &.frame-3 {
+    border-color: var(--color-border);
+    border-width: calc(var(--thickness-border));
+  }
+}
+
+@keyframes frame-shrink {
+  0% {
+    --thickness-mult: 2.5;
+  }
+  100% {
+    --thickness-mult: 1;
+  }
+}
