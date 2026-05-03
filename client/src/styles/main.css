@@ -26,6 +26,13 @@
     color-scheme: dark;
 }
 
+#starfield {
+    position: fixed;
+    inset: 0;
+    display: block;
+    z-index: 0;
+}
+
 /* Container */
 .container {
     position: fixed;
@@ -165,10 +172,18 @@ header {
 
 /* Results */
 .search-results {
-    margin-top: calc(var(--space) * 4);
+    padding-block: calc(var(--space) * 4);
     display: flex;
     flex-direction: column;
     gap: calc(var(--space) * 3);
+    overflow-y: auto;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to bottom,
+        transparent 0%,
+        black calc(var(--space) * 4),
+        black calc(100% - var(--space) * 4),
+        transparent 100%
+    );
 
     .search-result-wrapper {
         position: relative;
@@ -225,6 +240,7 @@ header {
                     font-weight: 500;
                     transform: translate(-50%, -50%) rotate(-90deg);
                     color: var(--color-text-muted);
+                    user-select: none;
                 }
             }
 
@@ -255,6 +271,7 @@ header {
                 .title {
                     font-size: 1.4rem;
                     font-weight: 600;
+                    letter-spacing: 0.08rem;
                 }
 
                 hr {
