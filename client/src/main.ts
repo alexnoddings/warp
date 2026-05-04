@@ -1,6 +1,7 @@
 import './styles/main.css'
 import './targets.ts'
 import type {WarpTarget} from "./targets.ts";
+import {runStarfield} from "./starfield.ts";
 
 function getWarpTargets(): WarpTarget[] {
     // @ts-ignore - value set by server at runtime
@@ -238,6 +239,8 @@ function main() {
         searchInput.addEventListener("keydown", e => onInputKeyDown(e));
     }
     initialiseTargets();
+
+    runStarfield();
 }
 
 document.addEventListener("DOMContentLoaded", main);
