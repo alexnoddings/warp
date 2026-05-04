@@ -39,6 +39,10 @@
     inset: 0;
 
     animation: 250ms ease-in container-appear;
+
+    &.warp {
+        animation: 250ms ease-in forwards container-disappear;
+    }
 }
 
 @keyframes container-appear {
@@ -47,6 +51,19 @@
     }
     100% {
         transform: scale(100%);
+    }
+}
+
+@keyframes container-disappear {
+    from {
+        transform: scale(100%);
+        opacity: 100%;
+        filter: blur(0px);
+    }
+    to {
+        transform: scale(150%);
+        opacity: 0;
+        filter: blur(22px);
     }
 }
 
@@ -63,12 +80,6 @@
 
     display: flex;
     flex-direction: column;
-
-    &.warp {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-130px);
-        transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
 }
 
 main {

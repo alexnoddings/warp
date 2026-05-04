@@ -164,8 +164,7 @@ function onInputKeyDown(event: KeyboardEvent) {
         event.preventDefault();
         const target = getSelectedTarget();
         if (target) {
-            window.location.href = formAnchorHref(target.host, target.id);
-            return;
+            goTo(target);
         }
         return;
     }
@@ -224,6 +223,11 @@ function onInputKeyDown(event: KeyboardEvent) {
         }
         return;
     }
+}
+
+function goTo(target: WarpTarget): void {
+    document.getElementById("container")?.classList.add("warp");
+    // window.location.href = formAnchorHref(target.host, target.id);
 }
 
 function main() {
