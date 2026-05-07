@@ -1,0 +1,36 @@
+@import "./styles/controls.css";
+@import "./styles/fonts.css";
+@import "./styles/frame.css";
+@import "./styles/reset.css";
+@import "./styles/utils.css";
+
+:root {
+    --color-bg: #000000;
+    --color-surface: #0E0E0E;
+    --color-surface-alt: #1F1F1F;
+    --color-text: #EFEFEF;
+    --color-text-muted: #6F6F6F;
+    --color-border: #2F2F2F;
+    --color-accent: #FF4F00;
+    --color-accent-lighten: #FF8B68;
+    --color-accent-darken: #5F240A;
+    --color-secondary: #008AFF;
+    --color-tertiary: #15FF00;
+
+    --font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Space Mono', Consolas, monospace;
+
+    --space: 4px;
+
+    text-rendering: optimizeLegibility;
+    color-scheme: dark;
+}
+
+#starfield {
+    position: fixed;
+    inset: 0;
+    display: block;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+}
