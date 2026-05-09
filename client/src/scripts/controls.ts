@@ -12,11 +12,12 @@ function getWarpTargets(): WarpTarget[] {
 
 const warpTargetContainerElems = new Map<string, HTMLElement>();
 const warpTargets = new Map<string, WarpTarget>();
-getWarpTargets().forEach((target) => {
-    warpTargets.set(target.id, target);
-})
 
 function initialiseTargets(controls: ControlsImpl) {
+    getWarpTargets().forEach((target) => {
+        warpTargets.set(target.id, target);
+    });
+
     const searchResults = document.getElementById("search-results");
     if (!searchResults) {
         throw new Error("'search-results' element not found");
