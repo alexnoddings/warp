@@ -1,0 +1,31 @@
+address = "localhost:8080"
+
+[[targets]]
+id = "this"
+host = "localhost"
+title = "this site"
+url = "http://localhost:8080"
+
+[[targets]]
+id = "alexnoddingsdotcom"
+host = "localhost"
+title = "alexnoddings.com"
+url = "https://alexnoddings.com/"
+
+[[targets]]
+id = "impulse"
+host = "localhost"
+title = "impulse TTRPG"
+url = "https://impulse.alexnoddings.com/"
+
+[[targets]]
+id = "tyne-docs"
+host = "localhost"
+title = "Tyne docs"
+url = "https://tyne.alexnoddings.com"
+
+[[targets]]
+id = "tyne-demo"
+host = "localhost"
+title = "Tyne demo"
+url = "https://tyne.alexnoddings.com/demo/"
