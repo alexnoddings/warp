@@ -1,5 +1,11 @@
 import './targets.ts'
-import type {WarpTarget} from "./targets.ts";
+
+interface WarpTarget {
+    id: string;
+    host: string;
+    title: string;
+    url: string;
+}
 
 function getWarpTargets(): WarpTarget[] {
     // @ts-ignore - value set by server at runtime
@@ -231,6 +237,7 @@ function onInputKeyDown(event: KeyboardEvent) {
 function goTo(target: WarpTarget): void {
     document.getElementById("container")?.classList.add("warp");
     // window.location.href = formAnchorHref(target.host, target.id);
+    target;
 }
 
 export class Controls {
