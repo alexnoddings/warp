@@ -93,8 +93,8 @@ function formAnchorHref(host: string, id: string): string {
     return href + "/go/" + id;
 }
 
-function searchMatches(tokens: string[], id: string): boolean {
-    const lower = id.toLowerCase();
+function searchMatches(tokens: string[], term: string): boolean {
+    const lower = term.toLowerCase();
     return tokens.every(t => lower.includes(t));
 }
 
