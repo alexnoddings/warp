@@ -7,8 +7,8 @@ export function random(min: number, max: number) {
 
 // Calculates pythag distance between (0, 0) and (x, y)
 export function distanceTo(x: number, y: number) {
-    const x2 = Math.pow(Math.abs(x), 2);
-    const y2 = Math.pow(Math.abs(y), 2);
+    const x2 = x * x;
+    const y2 = y * y;
     return Math.sqrt(x2 + y2);
 }
 
