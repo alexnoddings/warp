@@ -1,5 +1,3 @@
-import './targets.ts'
-
 interface WarpTarget {
     id: string;
     host: string;
@@ -39,16 +37,10 @@ function initialiseTargets(controls: ControlsImpl) {
             </div>
             <div class="search-result-content">
                 <div class="top">
-                   <span class="id">
-                       ${target.id}
-                   </span>
-                    <span class="host">
-                       ${target.host}
-                   </span>
+                   <span class="id">${target.id}</span>
+                    <span class="host">${target.host}</span>
                 </div>
-                <h2 class="title">
-                    ${target.title}
-                </h2>
+                <h2 class="title">${target.title}</h2>
                 <hr/>
                 <span class="target">
                     ${target.url}
