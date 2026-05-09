@@ -24,6 +24,8 @@ export class Starfield {
         return this.lerpedSpeed.value;
     }
 
+    private shouldDrawDebugTimings: boolean = false;
+
     constructor(surface: Surface) {
         this.lerpedSpeed = new Lerped(cfg.speeds.start);
 
@@ -60,6 +62,9 @@ export class Starfield {
         this.lerpedSpeed.setTarget(cfg.speeds.rest, 500);
 
         this.requestNextAnimationFrame();
+
+        // @ts-ignore
+        window.drawDebugTimings = (v: boolean) => this.shouldDrawDebugTimings = v;
     }
 
     public stop(): void {
@@ -108,7 +113,9 @@ export class Starfield {
         this.surface.context.fillStyle = 'rgba(0, 0, 0, 1)';
         this.surface.context.fillRect(0, 0, this.surface.canvas.width, this.surface.canvas.height);
         this.drawStars();
-        this.drawDebugTimings();
+        if (this.shouldDrawDebugTimings) {
+            this.drawDebugTimings();
+        }
 
         const end = performance.now();
         this.frameTimeMs = end - start;
