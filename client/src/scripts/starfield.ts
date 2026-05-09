@@ -7,9 +7,11 @@ const cfg = {
     speeds: {
         start: 7,
         rest: 0.25,
-        fastMax: 10,
+        fastMax: 6,
         inputBump: 2,
         decayPerSecond: 2.5,
+        warp1: 10,
+        warp3: 30,
     }
 }
 
@@ -35,8 +37,10 @@ export class Starfield {
     }
 
     public doWarp(): void {
-        const target = cfg.speeds.fastMax * 5;
-        this.lerpedSpeed.setTarget(target, 1_000);
+        this.lerpedSpeed.setTarget(cfg.speeds.warp1, 250);
+        window.setTimeout(() => {
+            this.lerpedSpeed.setTarget(cfg.speeds.warp3, 300);
+        }, 250);
     }
 
     public start(): void {
