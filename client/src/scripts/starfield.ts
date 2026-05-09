@@ -39,7 +39,7 @@ export class Starfield {
     public doWarp(): void {
         this.lerpedSpeed.setTarget(cfg.speeds.warp1, 250);
         window.setTimeout(() => {
-            this.lerpedSpeed.setTarget(cfg.speeds.warp3, 300);
+            this.lerpedSpeed.setTarget(cfg.speeds.warp3, 250);
         }, 250);
     }
 
@@ -57,7 +57,7 @@ export class Starfield {
 
         // Start fast then slow down
         this.lerpedSpeed.setValue(cfg.speeds.start);
-        this.lerpedSpeed.setTarget(cfg.speeds.rest, 800);
+        this.lerpedSpeed.setTarget(cfg.speeds.rest, 500);
 
         this.requestNextAnimationFrame();
     }

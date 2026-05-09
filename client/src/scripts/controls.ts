@@ -259,7 +259,7 @@ export class ControlsImpl implements Controls {
         }
         window.setTimeout(() => {
             window.location.href = formAnchorHref(target.host, target.id);
-        }, 1_000);
+        }, 750);
     }
 }
 
