@@ -98,14 +98,16 @@ function searchMatches(tokens: string[], term: string): boolean {
     return tokens.every(t => lower.includes(t));
 }
 
-function filterResults(): void {
+function filterResults(controls: ControlsImpl): void {
     const searchInput = document.getElementById("search") as HTMLInputElement;
     const searchTokens = searchInput!.value.trim().toLowerCase().split(/\s+/);
 
+    let matches = 0;
     let wasAnySelected = false;
     warpTargetContainerElems.forEach((elem, id) => {
         const target = warpTargets.get(id)!;
         if (searchMatches(searchTokens, target.title)) {
+            matches++;
             setEnabled(elem, true);
             wasAnySelected = wasAnySelected || elem.classList.contains("selected");
         } else {
@@ -116,6 +118,13 @@ function filterResults(): void {
     const shouldResetSelected = getSelectedTarget() == undefined;
     if (shouldResetSelected || !wasAnySelected) {
         resetSelected();
+    }
+
+    if (matches == 1) {
+        const goTo = getSelectedTarget();
+        if (goTo) {
+            controls.goTo(goTo);
+        }
     }
 }
 
@@ -262,7 +271,7 @@ export function initialiseControls(): Controls {
         searchInput.focus();
         searchInput.addEventListener("keydown", e => onInputKeyDown(e, controls));
         searchInput.addEventListener("input", _ => {
-            filterResults();
+            filterResults(controls);
             if (controls.onInput) {
                 controls.onInput();
             }
