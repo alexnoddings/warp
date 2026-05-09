@@ -11,3 +11,7 @@ pub fn get_html(cfg: Arc<Config>) -> String {
     let js = get_js(cfg);
     html.replace("window.warpTargets=[]", &js)
 }
+
+pub fn get_favicon() -> String {
+    include_str!("../dist/favicon.svg").to_string()
+}
