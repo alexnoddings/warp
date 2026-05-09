@@ -245,11 +245,12 @@ export class ControlsImpl implements Controls {
 
     goTo(target: WarpTarget): void {
         document.getElementById("container")?.classList.add("warp");
-        // window.location.href = formAnchorHref(target.host, target.id);
-        target;
         if (this.onWarp) {
             this.onWarp();
         }
+        window.setTimeout(() => {
+            window.location.href = formAnchorHref(target.host, target.id);
+        }, 1_500);
     }
 }
 

@@ -8,6 +8,9 @@ function main() {
         ctrls.onInput = () => {
             sf.incrementSpeed();
         }
+        ctrls.onWarp = () => {
+            sf.doWarp();
+        }
     }
 }
 

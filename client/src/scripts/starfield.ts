@@ -232,6 +232,11 @@ class Starfield {
         this.lerpedSpeed.setTarget(Math.min(target, cfg.speeds.fastMax), 500);
     }
 
+    public doWarp(): void {
+        const target = cfg.speeds.fastMax * 5;
+        this.lerpedSpeed.setTarget(target, 1_000);
+    }
+
     public start(): void {
         const lastFrameTimestamp = document.timeline.currentTime;
         if (!lastFrameTimestamp) {
