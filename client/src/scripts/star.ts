@@ -28,8 +28,8 @@ const speedMax = zMax / 5;
 
 // Min/max size of stars
 // Radius is a product of z distance and magnitude
-const magnitudeMin = 2;
-const magnitudeMax = 3.25;
+const magnitudeMin = 3;
+const magnitudeMax = 6;
 // Min radius of drawn stars
 const radiusMin = 1;
 
@@ -45,6 +45,8 @@ export class Star {
     private x: number = xyMin;
     private y: number = xyMin;
     private z: number = zMin;
+    private pz: number = zMin;
+    private shouldResetEarly: boolean = false;
 
     private readonly speed: number = speedMin;
     private magnitude: number = magnitudeMin;
@@ -68,10 +70,12 @@ export class Star {
     }
 
     public reset(): void {
+        this.shouldResetEarly = false;
         const {x, y} = Star.getResetPoint();
         this.x = x;
         this.y = y;
         this.z = zMax;
+        this.pz = zMax;
         this.magnitude = random(magnitudeMin, magnitudeMax);
         this.temperature = random(temperatureMin, temperatureMax);
         this.temperatureStyle = kelvinToRgb(this.temperature);
@@ -99,15 +103,16 @@ export class Star {
 
     public step(delta: number) {
         // Move towards the camera
+        this.pz = this.z;
         this.z -= this.speed * delta * this.starfield.speed;
 
-        // Recycle stars that cross the z plane
-        if (this.z <= 0) {
+        // Recycle stars that cross the z plane or have left the canvas
+        if (this.z <= 0 || this.shouldResetEarly) {
             this.reset();
         }
     }
 
-    private hasLeftCanvas(x: number, y: number): boolean {
+    private isPointOutsideOfCanvas(x: number, y: number): boolean {
         return x < 0
             || x > this.surface.cw
             || y < 0
@@ -119,11 +124,14 @@ export class Star {
         const fov = this.surface.cx * fovScale;
         const x = this.surface.cx + (this.x / this.z) * fov;
         const y = this.surface.cy + (this.y / this.z) * fov;
+        const px = this.surface.cx + (this.x / this.pz) * fov;
+        const py = this.surface.cy + (this.y / this.pz) * fov;
 
         // Recycle stars that leave the canvas early rather than waiting to cull at Z plane
-        if (this.hasLeftCanvas(x, y)) {
-            this.reset();
-            return;
+        if (this.isPointOutsideOfCanvas(x, y)) {
+            // Resetting this frame would cause a noticeable dark region around the canvas edge at high speeds
+            // Instead, mark this star to be reset next frame so we draw the star trail leaving the canvas
+            this.shouldResetEarly = true;
         }
 
         // Scale magnitude based on z distance
@@ -145,10 +153,12 @@ export class Star {
         const opacity = Math.min(1, scale * (zMax / (zMax - zOpacityPoint)));
 
         this.surface.context.beginPath();
-        this.surface.context.arc(x, y, radius, 0, 6.28318); // Math.PI * 2
-        this.surface.context.fillStyle = this.temperatureStyle;
+        this.surface.context.lineCap = "round";
+        this.surface.context.strokeStyle = this.temperatureStyle;
+        this.surface.context.lineWidth = radius;
         this.surface.context.globalAlpha = opacity;
-        this.surface.context.fill();
-        this.surface.context.closePath();
+        this.surface.context.moveTo(px, py);
+        this.surface.context.lineTo(x, y);
+        this.surface.context.stroke();
     }
 }
