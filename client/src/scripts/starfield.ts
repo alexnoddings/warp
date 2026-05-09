@@ -105,34 +105,52 @@ export class Starfield {
     private draw(): void {
         const start = performance.now();
 
-        // reducing the alpha introduces a smearing motion blur behind stars
         this.surface.context.fillStyle = 'rgba(0, 0, 0, 1)';
         this.surface.context.fillRect(0, 0, this.surface.canvas.width, this.surface.canvas.height);
-        this.stars.forEach(star => {
-            star.draw();
-        });
-        // need to reset alpha as each star sets its own
-        this.surface.context.globalAlpha = 1;
+        this.drawStars();
+        this.drawDebugTimings();
 
         const end = performance.now();
         this.frameTimeMs = end - start;
+    }
 
-        // debug timings
-        this.surface.context.font = "16px Space Mono";
-        this.surface.context.fillStyle = '#FF4F00';
-        const stepTimeMsStr = prettyPrint(this.stepTimeMs, "ms");
-        this.surface.context.fillText("step time    " + stepTimeMsStr, 20, 30);
-        const frameTimeMsStr = prettyPrint(this.frameTimeMs, "ms");
-        this.surface.context.fillText("frame time   " + frameTimeMsStr, 20, 50);
-        const speedTargetStr = prettyPrint(this.lerpedSpeed.targetValue, "zs");
-        this.surface.context.fillText("target speed " + speedTargetStr, 20, 70);
-        const speedActualStr = prettyPrint(this.lerpedSpeed.value, "zs");
-        this.surface.context.fillText("actual speed " + speedActualStr, 20, 90);
+    private drawStars(): void {
+        // every star uses the same lineCap
+        this.surface.context.lineCap = "round";
+
+        this.stars.forEach(star => {
+            star.draw();
+        });
+
+        // reset alpha as each star sets its own
+        this.surface.context.globalAlpha = 1;
+    }
+
+    private drawDebugTimings(): void {
+        const c = this.surface.context;
+        let i = 0;
+
+        c.font = "16px Space Mono";
+        c.fillStyle = '#FF4F00';
+
+        drawDebug("stars", this.stars.length);
+        drawDebug("step time", this.stepTimeMs, "ms");
+        drawDebug("frame time", this.frameTimeMs, "ms");
+        drawDebug("target speed", this.lerpedSpeed.targetValue, "zs");
+        drawDebug("actual speed", this.lerpedSpeed.value, "zs");
+
+        function drawDebug(label: string, value: number, unit?: string): void {
+            const y = 35 + i * 20;
+            i++;
+            const text = label.padEnd(14, ' ');
+            const valueStr = prettyPrint(value, unit);
+            c.fillText(text + valueStr, 25, y);
+        }
     }
 }
 
-function prettyPrint(value: number, units: string): string {
-    return value.toString().substring(0, 4).padStart(4, '0') + units;
+function prettyPrint(value: number, units?: string): string {
+    return value.toString().substring(0, 4).padStart(4, '0') + (units ?? "");
 }
 
 export function runStarfield(): Starfield | null {

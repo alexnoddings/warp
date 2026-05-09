@@ -153,7 +153,6 @@ export class Star {
         const opacity = Math.min(1, scale * (zMax / (zMax - zOpacityPoint)));
 
         this.surface.context.beginPath();
-        this.surface.context.lineCap = "round";
         this.surface.context.strokeStyle = this.temperatureStyle;
         this.surface.context.lineWidth = radius;
         this.surface.context.globalAlpha = opacity;
