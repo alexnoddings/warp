@@ -108,7 +108,7 @@ class Star {
     private magnitude: number = magnitudeMin;
     private temperature: number = temperatureMin;
     // Temperature doesn't change over star lifetime, so caching prevents unnecessary recalculations
-    private temperatureStyle: string = "rbg(255,255,255)";
+    private temperatureStyle: string = "rgb(255,255,255)";
 
     constructor(starfield: Starfield, surface: Surface) {
         this.starfield = starfield;
@@ -300,7 +300,7 @@ class Starfield {
         const start = performance.now();
 
         // reducing the alpha introduces a smearing motion blur behind stars
-        this.surface.context.fillStyle = 'rgba(0, 0, 0, 1)';
+        this.surface.context.fillStyle = 'rgba(0, 0, 0, 0.25)';
         this.surface.context.fillRect(0, 0, this.surface.canvas.width, this.surface.canvas.height);
         this.stars.forEach(star => {
             star.draw();
