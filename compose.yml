@@ -1,0 +1,14 @@
+services:
+  warp:
+    container_name: warp
+    image: warp
+    # Left is the host port
+    # Right is container port, which should match 'address' in config.toml
+    ports:
+      - "8080:8080"
+    volumes:
+      # Left is the host path
+      # Right is the container path, this shouldn't change
+      - ./config.toml:/app/config.toml:ro
+    # Automatically start on docker start
+    restart: unless-stopped
