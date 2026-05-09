@@ -18,7 +18,7 @@ getWarpTargets().forEach((target) => {
     warpTargets.set(target.id, target);
 })
 
-function initialiseTargets() {
+function initialiseTargets(controls: ControlsImpl) {
     const searchResults = document.getElementById("search-results");
     if (!searchResults) {
         throw new Error("'search-results' element not found");
@@ -60,7 +60,7 @@ function initialiseTargets() {
         `;
         anchor.addEventListener("click", event => {
             event.preventDefault();
-            goTo(target);
+            controls.goTo(target);
         })
 
         elem.appendChild(anchor);
@@ -168,12 +168,12 @@ function getSelectedTarget(): WarpTarget|undefined {
     return undefined;
 }
 
-function onInputKeyDown(event: KeyboardEvent) {
+function onInputKeyDown(event: KeyboardEvent, controls: ControlsImpl) {
     if (event.key === "Enter") {
         event.preventDefault();
         const target = getSelectedTarget();
         if (target) {
-            goTo(target);
+            controls.goTo(target);
         }
         return;
     }
@@ -234,24 +234,32 @@ function onInputKeyDown(event: KeyboardEvent) {
     }
 }
 
-function goTo(target: WarpTarget): void {
-    document.getElementById("container")?.classList.add("warp");
-    // window.location.href = formAnchorHref(target.host, target.id);
-    target;
+export interface Controls {
+    onInput?: () => void;
+    onWarp?: () => void;
 }
 
-export class Controls {
+export class ControlsImpl implements Controls {
     public onInput?: () => void;
     public onWarp?: () => void;
+
+    goTo(target: WarpTarget): void {
+        document.getElementById("container")?.classList.add("warp");
+        // window.location.href = formAnchorHref(target.host, target.id);
+        target;
+        if (this.onWarp) {
+            this.onWarp();
+        }
+    }
 }
 
 export function initialiseControls(): Controls {
-    const controls = new Controls();
+    const controls = new ControlsImpl();
 
     const searchInput = document.getElementById("search");
     if (searchInput) {
         searchInput.focus();
-        searchInput.addEventListener("keydown", e => onInputKeyDown(e));
+        searchInput.addEventListener("keydown", e => onInputKeyDown(e, controls));
         searchInput.addEventListener("input", _ => {
             filterResults();
             if (controls.onInput) {
@@ -259,7 +267,7 @@ export function initialiseControls(): Controls {
             }
         });
     }
-    initialiseTargets();
+    initialiseTargets(controls);
 
     return controls;
 }
