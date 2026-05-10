@@ -8,6 +8,10 @@
     &.warp {
         animation: 250ms ease-in forwards container-disappear;
     }
+
+    &.warp-hidden {
+        display: none;
+    }
 }
 
 @keyframes container-appear {

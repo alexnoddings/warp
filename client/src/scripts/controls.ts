@@ -239,6 +239,8 @@ function onInputKeyDown(event: KeyboardEvent, controls: ControlsImpl) {
 export interface Controls {
     onInput?: () => void;
     onWarp?: () => void;
+
+    reset(): void;
 }
 
 export class ControlsImpl implements Controls {
@@ -246,13 +248,26 @@ export class ControlsImpl implements Controls {
     public onWarp?: () => void;
 
     goTo(target: WarpTarget): void {
-        document.getElementById("container")?.classList.add("warp");
+        const c = document.getElementById("container");
+        if (c) {
+            c.classList.add("warp");
+            setTimeout(() => c.classList.add("warp-hidden"), 250);
+        }
+
         if (this.onWarp) {
             this.onWarp();
         }
         window.setTimeout(() => {
             window.location.href = formAnchorHref(target.host, target.id);
         }, 750);
+    }
+
+    public reset(): void {
+        const c = document.getElementById("container");
+        if (c) {
+            c.classList.remove("warp");
+            c.classList.remove("warp-hidden");
+        }
     }
 }
 

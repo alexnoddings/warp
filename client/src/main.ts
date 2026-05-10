@@ -12,6 +12,15 @@ function main() {
             sf.doWarp();
         }
     }
+
+    window.addEventListener('pageshow', (event) => {
+        if (!event.persisted) {
+            return;
+        }
+
+        ctrls.reset();
+        sf?.reset();
+    });
 }
 
 document.addEventListener("DOMContentLoaded", main);

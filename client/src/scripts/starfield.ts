@@ -74,6 +74,11 @@ export class Starfield {
         }
     }
 
+    public reset(): void {
+        this.stop();
+        this.start();
+    }
+
     private lastFrameTimestamp: number = 0;
     private nextFrameId: number | undefined;
 
